@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Context-Aware AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🤖 Context-Aware AI</h1>
+
+        <p>
+            Talk with the AI and let it remember your context.
+        </p>
+
+
+        <!-- CHAT BOX -->
+
+        <div id="chatBox" class="chat-box">
+
+            {% for chat in chat_history %}
+
+                <div class="user-message">
+                    {{ chat.user }}
+
+                    <small class="timestamp">
+                        {{ chat.time }}
+                    </small>
+                </div>
+
+
+                <div class="ai-message">
+                    {{ chat.ai }}
+
+                    <small class="timestamp">
+                        {{ chat.time }}
+                    </small>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- AI MEMORY DASHBOARD -->
+
+        <div class="memory-panel">
+
+            <h3>🧠 AI Memory</h3>
+
+            <div id="memoryText">
+
+                {% if memory.name %}
+                    <div class="memory-item">
+                        <span>👤</span>
+                        <strong>Name</strong>
+                        <p>{{ memory.name }}</p>
+                    </div>
+                {% endif %}
+
+
+                {% if memory.learning_topic %}
+                    <div class="memory-item">
+                        <span>📚</span>
+                        <strong>Learning</strong>
+                        <p>{{ memory.learning_topic }}</p>
+                    </div>
+                {% endif %}
+
+
+                {% if memory.favorite_subject %}
+                    <div class="memory-item">
+                        <span>⭐</span>
+                        <strong>Favorite Subject</strong>
+                        <p>{{ memory.favorite_subject }}</p>
+                    </div>
+                {% endif %}
+
+
+                {% if memory.career_goal %}
+                    <div class="memory-item">
+                        <span>🎯</span>
+                        <strong>Career Goal</strong>
+                        <p>{{ memory.career_goal }}</p>
+                    </div>
+                {% endif %}
+
+
+                {% if memory.skill %}
+                    <div class="memory-item">
+                        <span>💻</span>
+                        <strong>Skill</strong>
+                        <p>{{ memory.skill }}</p>
+                    </div>
+                {% endif %}
+
+
+                {% if not memory.name and not memory.learning_topic and not memory.favorite_subject and not memory.career_goal and not memory.skill %}
+
+                    <p class="empty-memory">
+                        No information remembered yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- USER INPUT -->
+
+        <textarea
+            id="userText"
+            placeholder="Type your message here..."
+        ></textarea>
+
+
+        <!-- BUTTONS -->
+
+        <div class="button-area">
+
+            <button onclick="analyzeText()">
+                Send
+            </button>
+
+
+            <button
+                class="clear-button"
+                onclick="clearMemory()"
+            >
+                🗑️ Clear Memory
+            </button>
+
+
+            <button
+                class="dark-button"
+                onclick="toggleDarkMode()"
+            >
+                🌙 Dark Mode
+            </button>
+
+
+            <button onclick="downloadChat()">
+                📥 Download Chat
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
